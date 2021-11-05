@@ -42,10 +42,11 @@
       register: welcome
 
     - name: Move welcome.conf to welcome.conf.backup
-      command: mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.backup
+      command: mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf.backup
       when: welcome.stat.exists
+      notify: Restart httpd
 
-    - name: Create a file with content /var/www/html/index.html 
+    - name: Create a file with content /var/www/html/index.html
       copy:
         dest: "/var/www/html/index.html "
         content: |
