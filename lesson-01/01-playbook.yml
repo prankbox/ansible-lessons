@@ -15,11 +15,15 @@
         state: started
         enabled: yes
 
-    - name: permit traffic in default zone for http service
-      firewalld:
-        service: http
+    - name: permit traffic in default zone for http/https services
+      ansible.posix.firewalld:
         permanent: yes
+        immediate: yes
+        service: "{{ item }}"
         state: enabled
+      with_items:
+       - http
+       - https
 
     - name: Install httpd package
       yum:
