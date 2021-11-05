@@ -1,6 +1,7 @@
 ---
 - name: Ansible Lesson 01
   hosts: example
+  become: yes
   tasks:
 
     - name: Install Firewalld if not installed
