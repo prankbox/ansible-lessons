@@ -1,0 +1,45 @@
+---
+- name: Ansible Lesson 01
+  hosts: example
+  tasks:
+
+    - name: Install Firewalld if not installed
+      yum:
+        name: firewalld
+        state: latest
+
+    - name: Start service firewalld, if not started
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+
+    - name: permit traffic in default zone for http service
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+
+    - name: Install httpd package
+      yum:
+        name: httpd
+        state: latest
+
+    - name: Start service httpd, if not yet and enabled
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Create a file with content /var/www/html/index.html 
+      copy:
+        dest: "/var/www/html/index.html "
+        content: |
+          <h1> Welcome to my web server, EPAMer! </h1>
+      notify: Restart httpd
+
+  handlers:
+    - name: Restart httpd
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
