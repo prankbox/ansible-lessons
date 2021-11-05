@@ -1,0 +1,37 @@
+---
+- name: Ansible Lesson 01
+  hosts: example
+  become: yes
+  tasks:
+
+    - name: Stat file /var/www/html/index.html
+      stat:
+        path: /var/www/html/index.html
+      register: index
+
+    - name: Delete file /var/www/html/index.html
+      file:
+        state: absent
+        path: /var/www/html/index.html
+      when: index.stat.exists
+
+    - name: Stop httpd and disable
+      service:
+        name: httpd
+        state: stopped
+        enabled: no
+
+    - name: Remove httpd package
+      yum:
+        name: httpd
+        state: absent
+
+    - name: close traffic in default zone for http/https services
+      ansible.posix.firewalld:
+        permanent: yes
+        immediate: yes
+        service: "{{ item }}"
+        state: disabled
+      with_items:
+       - http
+       - https
