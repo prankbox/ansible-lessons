@@ -36,6 +36,15 @@
         state: started
         enabled: yes
 
+    - name: stat http welcome.conf
+      stat:
+        path: /etc/httpd/conf.d/welcome.conf
+      register: welcome
+
+    - name: Move welcome.conf to welcome.conf.backup
+      command: mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.backup
+      when: welcome.stat.exists
+
     - name: Create a file with content /var/www/html/index.html 
       copy:
         dest: "/var/www/html/index.html "
