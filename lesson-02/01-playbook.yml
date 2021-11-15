@@ -1,6 +1,7 @@
 ---
 - name: Creating multiple users
   hosts: example
+  become: yes
   tasks:
 
     - name: Print users
