@@ -1,0 +1,5 @@
+---
+- name: Provision services
+  hosts: example
+  tasks:
+
