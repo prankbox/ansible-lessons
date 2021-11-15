@@ -7,3 +7,14 @@
       debug:
         msg: User {{ item.key }} has {{ item.value.homedir }} and shell {{ item.value.shell }} and pass {{ item.value.password }}
       with_dict: "{{ users }}"
+
+    - name: multiple
+      user:
+        name: "{{ item.key }}"
+        shell: "{{ item.value.shell }}"
+        createhome: yes
+        password: "{{ item.value.password | password_hash('sha512') }}"
+        comment: "{{ item.value.comment }}"
+        state: present
+        update_password: on_create
+      with_dict: "{{ users }}"
