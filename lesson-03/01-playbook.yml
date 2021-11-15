@@ -1,6 +1,7 @@
 ---
 - name: Provision services
   hosts: example
+  become: yes
   tasks:
 
    roles:
