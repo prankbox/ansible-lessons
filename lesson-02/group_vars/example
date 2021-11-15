@@ -3,6 +3,7 @@ users:
     username: alice
     homedir: /home/alice
     shell: /bin/bash
+    comment: "alice@example.com"
     password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           37613537633836633436383632383934353838353134373866386638376162623630363437363837
@@ -15,6 +16,7 @@ users:
     username: bob
     homedir: /home/bob
     shell: /bin/bash
+    comment: "bob@example.com"
     password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           37613537633836633436383632383934353838353134373866386638376162623630363437363837
@@ -27,6 +29,7 @@ users:
     username: carol
     homedir: /home/carol
     shell: /bin/bash
+    comment: "carol@example.com"
     password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           37613537633836633436383632383934353838353134373866386638376162623630363437363837
