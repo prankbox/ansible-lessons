@@ -1,0 +1,9 @@
+---
+- name: Creating multiple users
+  hosts: example
+  tasks:
+
+    - name: Print users
+      debug:
+        msg: User {{ item.key }} has {{ item.value.homedir }} and shell {{ item.value.shell }} and pass {{ item.value.password }}
+      with_dict: "{{ users }}"
