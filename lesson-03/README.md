@@ -1,6 +1,6 @@
-## Lesson02
+## Lesson03
 
-To check the lesson01 clone the repo:
+To check the lesson03 clone the repo:
 ```
 git clone https://github.com/prankbox/ansible-lessons.git
 cd ansible-lessions/lesson-03
