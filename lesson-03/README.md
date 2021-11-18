@@ -8,5 +8,5 @@ cd ansible-lessions/lesson-03
 
 To run the playbook:
 ```
-ansible-playbook -i inventory/example.ini 
+ansible-playbook -i inventory/example.ini 01-playbook.yml
 ```
