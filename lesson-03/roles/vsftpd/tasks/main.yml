@@ -16,11 +16,11 @@
   ansible.posix.firewalld:
     permanent: yes
     immediate: yes
-    service: "{{ item }}"
+    port: "{{ item }}"
     state: enabled
   with_items:
-    - ftp
-    - ftp-data
+    - 21/tcp
+    - 20/tcp
 
 - name: Install vsftpd package
   yum:
