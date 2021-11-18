@@ -24,8 +24,11 @@
 
 - name: Install vsftpd package
   yum:
-    name: vsftpd
+    name: 
+      - vsftpd
+      - libsemanage-python
     state: latest
+  
 
 - name: Start service vsftpd, if not yet and enabled
   service:
