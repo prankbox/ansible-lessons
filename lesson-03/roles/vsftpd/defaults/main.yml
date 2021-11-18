@@ -1,2 +1,4 @@
 ---
 # defaults file for vsftpd
+ftp_user: ftp
+true: YES

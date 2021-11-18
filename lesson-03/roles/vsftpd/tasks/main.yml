@@ -1,2 +1,64 @@
+
 ---
-# tasks file for vsftpd
+# tasks file for httpd
+- name: Install Firewalld if not installed
+  yum:
+    name: firewalld
+    state: latest
+
+- name: Start service firewalld, if not started
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: permit traffic in default zone for ftp/ftp-data services
+  ansible.posix.firewalld:
+    permanent: yes
+    immediate: yes
+    service: "{{ item }}"
+    state: enabled
+  with_items:
+    - ftp
+    - ftp-data
+
+- name: Install vsftpd package
+  yum:
+    name: vsftpd
+    state: latest
+
+- name: Start service vsftpd, if not yet and enabled
+  service:
+    name: vsftpd
+    state: started
+    enabled: yes
+
+
+- name: Template vsftpd.conf
+  template:
+    dest: /etc/vsftpd/vsftpd.conf
+    src: vsftpd.conf.j2
+  notify: Restart vsftpd
+
+- name: Dir ftp owner
+  ansible.builtin.file:
+    path: /var/ftp/pub
+    owner: ftp
+    group: root
+    mode: '0755'
+
+- name: Create upload dir for ftp-data
+  ansible.builtin.file:
+    path: /var/ftp/pub/upload
+    state: directory
+    owner: ftp
+    group: root
+    mode: '0755'
+
+- name: Set allow_ftpd_anon_write flag on
+  ansible.posix.seboolean:
+    name: allow_ftpd_anon_write
+    state: yes
+    persistent: yes
+
+
