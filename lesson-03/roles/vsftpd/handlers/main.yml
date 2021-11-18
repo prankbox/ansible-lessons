@@ -1,6 +1,4 @@
 ---
-# handlers file for vsftpd
----
 # handlers file for httpd
 - name: Restart vsftpd
   ansible.builtin.service:
